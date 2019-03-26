@@ -71,6 +71,9 @@ public class Runner {
         //Any custom variables
         binding.setVariable("customVars", customVars);
         
+        //DataView binding
+        binding.setVariable("dataView", MainWindow.getInstance().getDataView());
+        
         //Logger
         binding.setVariable("log", logger);
         
