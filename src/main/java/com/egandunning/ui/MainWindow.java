@@ -2,7 +2,6 @@ package com.egandunning.ui;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +26,7 @@ public class MainWindow extends JFrame {
     private static MainWindow mw;
     private Editor editor;
     private DataView dataView;
+    private JSplitPane centerPanel;
     
     /**
      * Get the instance of MainWindow. This ensures that other classes
@@ -40,6 +41,16 @@ public class MainWindow extends JFrame {
         
         mw = new MainWindow();
         return mw;
+    }
+    
+    /** 
+     * Set the Center Pane divider such that the Editor and DataView use
+     * equal horizontal space.
+     */
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b);
+        mw.centerPanel.setDividerLocation(0.5);
     }
 
     /**
@@ -67,42 +78,17 @@ public class MainWindow extends JFrame {
         ToolBar toolBar = new ToolBar();
         StatusBar statusBar = new StatusBar();
         ProjectNavigator projectNavigator = new ProjectNavigator();
-        JPanel centerPanel = new JPanel(new GridBagLayout());
+        //JPanel centerPanel = new JPanel(new GridBagLayout());
+        centerPanel = new JSplitPane(); 
+        
         
         //Initialize the components in the center panel
         editor = new Editor();
         dataView = new DataView();
         
-        //Add components to center panel
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        centerPanel.setLeftComponent(editor);
+        centerPanel.setRightComponent(dataView);
         
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        
-        centerPanel.add(editor, gbc);
-        
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        
-        centerPanel.add(dataView, gbc);
         
         //Add components to the main panel
         //Layout Docs:
@@ -114,7 +100,6 @@ public class MainWindow extends JFrame {
         
         //Add main panel to frame
         setContentPane(mainPanel);
-       
         
         setTitle("ETL Test Tool POC");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
