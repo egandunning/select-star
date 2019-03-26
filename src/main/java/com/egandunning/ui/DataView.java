@@ -2,9 +2,7 @@ package com.egandunning.ui;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JScrollPane;
@@ -41,13 +39,20 @@ public class DataView extends JTabbedPane {
         //get column labels
         String[] headers = new String[colCount];
         for(int i = 1; i <= colCount; i++) {
+            
             headers[i - 1] = rs.getMetaData().getColumnLabel(i);
             //logger.info("header " + i + ": " + headers[i]);
+            
         }
         
         //get row count
         while(rs.next()) {
             rowCount++;
+            
+            if(rowCount == rowLimit - 1) {
+                logger.warn("ResultSet row limit (", rowLimit, ") reached");
+                break;
+            }
         }
         rs.beforeFirst();
         
@@ -93,4 +98,21 @@ public class DataView extends JTabbedPane {
         addTab(title, scrollPane);
         logger.traceExit();
     }
+    
+    /**
+     * Get the number of rows to read from the ResultSet
+     * @return rowLimit
+     */
+    public int getRowLimit() {
+        return rowLimit;
+    }
+    
+    /**
+     * Set the number of row to read from the ResultSet
+     * @param rowLimit
+     */
+    public void setRowLimit(int rowLimit) {
+        this.rowLimit = rowLimit;
+    }
+    
 }

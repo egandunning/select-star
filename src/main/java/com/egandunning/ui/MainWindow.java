@@ -1,7 +1,6 @@
 package com.egandunning.ui;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -78,7 +77,7 @@ public class MainWindow extends JFrame {
         ToolBar toolBar = new ToolBar();
         StatusBar statusBar = new StatusBar();
         ProjectNavigator projectNavigator = new ProjectNavigator();
-        //JPanel centerPanel = new JPanel(new GridBagLayout());
+        
         centerPanel = new JSplitPane(); 
         
         
