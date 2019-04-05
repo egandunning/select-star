@@ -7,6 +7,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.egandunning.ui.MainWindow;
 
+/**
+ * Entry point for the application. Initializes and displays the main window.
+ * @author dunning
+ *
+ */
 public class Main {
 
     private static final Logger logger = LogManager.getLogger(com.egandunning.main.Main.class);

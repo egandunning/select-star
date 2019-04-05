@@ -12,6 +12,12 @@ import javax.swing.JTable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Pane to display a data grid. Displayable data includes ResultSets and 2-D
+ * Object arrays.
+ * @author dunning
+ *
+ */
 public class DataView extends JTabbedPane {
 
     private static final Logger logger = LogManager.getLogger(com.egandunning.ui.DataView.class);

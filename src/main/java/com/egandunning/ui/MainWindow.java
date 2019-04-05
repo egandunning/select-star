@@ -16,6 +16,11 @@ import javax.swing.JSplitPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This JFrame is the application's main window
+ * @author dunning
+ *
+ */
 public class MainWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;

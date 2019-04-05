@@ -34,6 +34,7 @@ public class Runner {
     private static final Logger logger = LogManager.getLogger(com.egandunning.runner.Runner.class);
     
     //Variables to be used in Groovy Scripts
+    
     private Map<String, ResultSet> dataSets;
     private Map<String, String> vars;
     private Map<String, Object> customVars;
@@ -58,6 +59,18 @@ public class Runner {
         customVars = new HashMap<>();
     }
     
+    /**
+     * Initializes the Binding to different variables. Bound variables can be
+     * accessed from the user's Groovy script.
+     * 
+     * Bound variable names: {@link Runner#vars vars},
+     * {@link Runner#dataSets dataSets},
+     * {@link Runner#customVars customVars},
+     * {@link com.egandunning.ui.MainWindow#dataView dataView},
+     * {@link Runner#logger log}
+     * 
+     * @return Binding object to be passed to GroovyShell constructor
+     */
     private Binding initBinding() {
         
         Binding binding = new Binding();

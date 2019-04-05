@@ -1,5 +1,6 @@
 package com.egandunning.persistence;
 
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.Cipher;
@@ -19,6 +20,12 @@ public class PasswordStorage {
     
     //TODO: constructor
     
+    public static void main(String[] args) throws Exception {
+        
+        PasswordStorage ps = new PasswordStorage();
+        ps.generateKey();
+        ps.store("pass".getBytes());
+    }
     
     /**
      * Store a new password
@@ -51,13 +58,22 @@ public class PasswordStorage {
      * by filename.
      * @param password the password to write
      * @param filename the file to store the password in
+     * @throws InvalidKeyException 
      */
-    private void store(byte[] password) {
+    private void store(byte[] password) throws InvalidKeyException {
         
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            
+            System.out.println(cipher.getAlgorithm());
             //TODO: encrypt password
+            cipher.init(Cipher.ENCRYPT_MODE, sk);
+            
+            
+            byte[] iv = cipher.getIV();
+            for(byte b : iv) {
+                System.out.print(b + " ");
+            }
+            System.out.println();
             //TODO: write encrypted password to file            
             
         } catch (NoSuchAlgorithmException e) {
@@ -78,7 +94,7 @@ public class PasswordStorage {
     private void generateKey() throws NoSuchAlgorithmException {
         
         KeyGenerator kg = KeyGenerator.getInstance("AES");
-        kg.init(256);
+        kg.init(128);
         sk = kg.generateKey();
     }
     
